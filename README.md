@@ -2,6 +2,12 @@
 ## Eye-tracking WebApp
 Integrate WebGazer.js into a Flask Framework.
 
+### Currently Working on:
+* Phase 1
+* Set up two buttons: Start and End
+* Start will start the webgazer and show prediction points 
+* End will end the webgazer
+
 ## Goals
 ### Phase 1: Get webgaze.js working
 * Integrate webgazer.js into the flask webapp (single page)

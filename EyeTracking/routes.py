@@ -3,5 +3,9 @@ from EyeTracking import app, db
 import os
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def index():
+    return render_template('home.html')
+
+@app.route('/tracking')
+def tracking():
+	return render_template('tracking.html')
