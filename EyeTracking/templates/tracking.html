@@ -9,15 +9,31 @@
     $(function() {
         // start webgazer when start button is clicked
         $('#startTracking').on('click', function () {
-            //start the webgazer tracker
+            webgazer.begin()
+            start the webgazer tracker
             webgazer.setRegression('ridge') /* currently must set regression and tracker */
-            //.setTracker('clmtrackr')
+            .setTracker('clmtrackr')
             .setGazeListener(function(data, clock) {
-                console.log(data[0], data[1]); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
-                //  console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
+                console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
+                //console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
             })
             .begin()
             .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
+            function checkIfReady() {
+                if (webgazer.isReady()) {
+                    console.log("Ready");
+                } else {
+                    setTimeout(checkIfReady, 100);
+                }
+            }
+            setTimeout(checkIfReady,100);
+            // var prediction = webgazer.getCurrentPrediction();
+            // if (prediction) {
+            //     var x = prediction.x;
+            //     var y = prediction.y;
+            // };
+            // console.log(prediction);
+            // console.log(x, y);
         })
         
         // stop webgazer after

@@ -13,9 +13,9 @@ h6 {
   color: #444444;
 }
 
-.container {
+#main-content {
   position: relative;
-  top: 300;
+  top: 250px;
 }
 
 .bg-steel {
