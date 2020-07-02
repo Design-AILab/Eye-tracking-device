@@ -7,6 +7,7 @@
 
 <script type="text/javascript">
     $(function() {
+        var coordinates = []
         // start webgazer when start button is clicked
         $('#startTracking').on('click', function () {
             webgazer.begin()
@@ -14,12 +15,20 @@
             webgazer.setRegression('ridge') /* currently must set regression and tracker */
             .setTracker('clmtrackr')
             .setGazeListener(function(data, clock) {
-                console.log(data)
+                console.log(data);
                  /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
                 //console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
                     data.then(function(res) {
-                        if (res.x){
-                            console.log(res.x, res.y)
+                        // if (res.x){
+                        //     console.log(res.x, res.y)
+                        //     coordinates.push([res.x, res.y])
+                        // }
+                        try {
+                             console.log(res.x, res.y);
+                             coordinates.push([res.x, res.y]);
+                        }
+                        catch {
+                            console.log('no coordinates detected');
                         }
                 })
 
@@ -46,7 +55,8 @@
         // stop webgazer after
         $('#endTracking').on('click', function()  {
             webgazer.end();
+            console.log(coordinates);
         })
-     });
+    });
 </script>
 {% endblock content %}
