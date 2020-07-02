@@ -3,10 +3,9 @@
 Integrate WebGazer.js into a Flask Framework.
 
 ### Currently Working on:
-* Phase 1
-* Set up two buttons: Start and End
-* Start will start the webgazer and show prediction points 
-* End will end the webgazer
+* Save coordinates to models.py
+* Phase 2
+
 
 ## Goals
 ### Phase 1: Get webgaze.js working
