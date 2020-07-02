@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
+from flask import Flask, render_template, url_for, flash, redirect, request, jsonify, session
 from EyeTracking import app, db
 import os
 
@@ -15,12 +15,13 @@ def tracking():
 def tracked_coordinates():
 	# print(request.json)
 	coords = request.json['data']
-	print(coords)
 	data = coords
-	#return redirect(url_for('show_coords', length=len(data), data=data))
-	return render_template('results.html',  length=len(data), data=data)
+	session['data'] = data
+	return redirect(url_for('show_coords'))
+	#return render_template('results.html', length=len(data), data=data)
 
 
-# @app.route('/show_results/<length>/<data>')
-# def show_coords(length, data):
-# 	return render_template('results.html', length=int(length), data=data)
+@app.route('/show_results')
+def show_coords():
+	data = session['data']
+	return render_template('results.html', length=len(data), data=data)

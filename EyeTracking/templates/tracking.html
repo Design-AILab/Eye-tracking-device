@@ -15,7 +15,7 @@
             webgazer.setRegression('ridge') /* currently must set regression and tracker */
             .setTracker('clmtrackr')
             .setGazeListener(function(data, clock) {
-                console.log(data);
+                //console.log(data);
                  /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
                 //console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
                     data.then(function(res) {
@@ -24,7 +24,7 @@
                         //     coordinates.push([res.x, res.y])
                         // }
                         try {
-                             console.log(res.x, res.y);
+                             //console.log(res.x, res.y);
                              coordinates.push([res.x, res.y]);
                         }
                         catch {
@@ -55,7 +55,6 @@
         // stop webgazer after
         $('#endTracking').on('click', function()  {
             webgazer.end();
-            console.log(coordinates);
             $.ajax({
                 url: "/tracked_coordinates", 
                 //"{{url_for('tracked_coordinates')}}",
@@ -63,10 +62,14 @@
                 dataType: 'json',
                 contentType: "application/json",
                 data: JSON.stringify({'data': coordinates}),   // converts js value to JSON string
+                // https://stackoverflow.com/questions/47122295/flask-how-to-redirect-to-new-page-after-ajax-call
+                complete: function(){
+                        window.location.href = "{{url_for('show_coords')}}";
+                    }
                 })
-                .done(function(result){     // on success get the return object from server
-                    console.log(result);     // do whatever with it. In this case see it in console
-            });
+            //     .done(function(result){     // on success get the return object from server
+            //         console.log(result);     // do whatever with it. In this case see it in console
+            // });
         });
     });
         
