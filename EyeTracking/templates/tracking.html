@@ -6,11 +6,11 @@
 </div>
 
 <script type="text/javascript">
-    $(function() {
-        var coordinates = []
+    $(function() {  
+        var coordinates = [];
         // start webgazer when start button is clicked
         $('#startTracking').on('click', function () {
-            webgazer.begin()
+            webgazer.begin();
             // start the webgazer tracker
             webgazer.setRegression('ridge') /* currently must set regression and tracker */
             .setTracker('clmtrackr')
@@ -50,13 +50,26 @@
             // };
             // console.log(prediction);
             // console.log(x, y);
-        })
+        });
         
         // stop webgazer after
         $('#endTracking').on('click', function()  {
             webgazer.end();
             console.log(coordinates);
-        })
+            $.ajax({
+                url: "/tracked_coordinates", 
+                //"{{url_for('tracked_coordinates')}}",
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify({'data': coordinates}),   // converts js value to JSON string
+                })
+                .done(function(result){     // on success get the return object from server
+                    console.log(result);     // do whatever with it. In this case see it in console
+            });
+        });
     });
+        
+
 </script>
 {% endblock content %}
