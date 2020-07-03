@@ -12,7 +12,7 @@ Integrate WebGazer.js into a Flask Framework.
 * Integrate webgazer.js into the flask webapp (single page)
 * start webgazer, which starts collecting points in which and transmitting the data to the backend
 * upon ending (have a button that ends the process), stop the webgazer (webgazer.end();) and stop transmitting data
-* save the coordinates to models py
+* save the coordinates to models py (Revision: Save to session, we will not store the images and their respective data)
 
 ### Phase 2: Upload functions
 * allow users to upload a design
