@@ -43,6 +43,21 @@ To successfully run the application, dependencies are required, please run:
 $ pip3 install -r requirements.txt 
 ```
 
+## Setting up a database:
+We use a sqlite database in this project, to set up the database, go to the terminal and enter:
+
+```bash
+$ python3
+```
+
+Once your on the python console, enter the following commands:
+
+```bash
+$ from EyeTracking import db
+$ db.drop_all()
+$ db.create_all()
+```
+
 ## Running the application
 Once you installed everything necessary, go to the root directory of the project and run:
 
