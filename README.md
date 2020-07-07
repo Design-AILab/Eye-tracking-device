@@ -3,7 +3,6 @@
 Integrate WebGazer.js into a Flask Framework.
 
 ### Currently Working on:
-* Save coordinates to models.py
 * Phase 2
 
 

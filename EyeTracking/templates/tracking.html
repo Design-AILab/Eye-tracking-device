@@ -3,6 +3,9 @@
     <button type="button" class="btn btn-primary" id="startTracking">Begin</button>
     <button type="button" class="btn btn-warning" id="endTracking">Stop</button>
     <script src="{{url_for('static', filename='js/webgazer.js') }}" type="text/javascript"></script>
+    {% if img %}
+        <img src="{{img}}" width='224' height='224' alt="Image">
+    {% endif %}
 </div>
 
 <script type="text/javascript">

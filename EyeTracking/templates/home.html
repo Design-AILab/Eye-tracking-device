@@ -2,7 +2,24 @@
 <div class="container">
     <h1>Welcome to a simple eye tracking demo</h1>
     <p>Get Started</p> <br>
-    <a class="btn btn-primary" href="{{ url_for('tracking')}}">Started</a>
-
+    <a class="btn btn-primary" href="{{ url_for('tracking', data_id='None')}}">Started</a>
+    <h4 class="text-light mb-5">Upload your design</h4>
+    <form id="myForm" method=post enctype=multipart/form-data action="{{url_for('upload_designs')}}">
+        <p class="text-light">
+            <label class="btn btn-primary btn-lg m-3">
+                Choose an Image: <span id="image-upload-value">...</span>
+                <input id="image-upload" type="file" name="file" style="display: none;">
+            </label>
+            <input type=submit value=Upload class="btn btn-primary btn-lg m-3">
+        </p>
+    </form>
+	<script type="text/javascript">
+		$(function() {
+		    $("input:file[id=image-upload]").change(function() {
+		        var filename = $(this).get(0).files.item(0).name;
+		        $("#image-upload-value").html( filename );
+		    });
+		});
+	</script>
 </div>
 {% endblock content %}
