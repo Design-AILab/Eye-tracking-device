@@ -66,8 +66,10 @@ def tracking(data_id):
 def tracked_coordinates():
 	# print(request.json)
 	coords = request.json['data']
+	image_positions = request.json['image position']
 	data = coords
 	session['data'] = data
+	session['image position'] = image_positions
 	return redirect(url_for('show_coords'))
 	#return render_template('results.html', length=len(data), data=data)
 
