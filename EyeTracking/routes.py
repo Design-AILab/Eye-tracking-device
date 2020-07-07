@@ -2,7 +2,28 @@ from flask import Flask, render_template, url_for, flash, redirect, request, jso
 from EyeTracking import app, db
 import os
 from EyeTracking.models import Tracked_Data
+from flask_uploads import UploadSet, configure_uploads, IMAGES, ALL
 
+# Storage for Images
+photos = UploadSet('photos', IMAGES)
+IMAGE_DIRECTORY = '/static/uploads'
+app.config['UPLOADED_PHOTOS_DEST'] = "." + IMAGE_DIRECTORY
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+configure_uploads(app, photos)
+
+# for the purpose of css
+@app.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                     endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
 
 @app.route('/')
 def index():
