@@ -58,28 +58,29 @@ def upload_designs():
 def tracking(data_id):
 	img_data = db.session.query(Tracked_Data).filter(Tracked_Data.id == data_id).first()
 	if img_data:
-		return render_template('tracking.html', img=img_data.design)
-	return render_template('tracking.html', img=None)
+		return render_template('tracking.html', img=img_data.design, id=data_id)
+	return render_template('tracking.html', img=None, id=None)
 
-
-@app.route('/tracked_coordinates', methods=['POST'])
-def tracked_coordinates():
+@app.route('/tracked_coordinates', defaults={'data_id': None}, methods=['POST'])
+@app.route('/tracked_coordinates/<data_id>', methods=['POST'])
+def tracked_coordinates(data_id):
 	# print(request.json)
 	coords = request.json['data']
 	image_positions = request.json['image position']
 	data = coords
 	session['data'] = data
 	session['image position'] = image_positions
-	return redirect(url_for('show_coords'))
+	return redirect(url_for('show_coords', data_id=data_id))
 	#return render_template('results.html', length=len(data), data=data)
 
-
-@app.route('/show_results')
-def show_coords():
+@app.route('/show_results', defaults={'data_id': None})
+@app.route('/show_results/<data_id>')
+def show_coords(data_id):
 	data = session['data']
 	# save data to database
-	print("Goes here")
-	coord_data = Tracked_Data(design="", tracked_coords=data)
-	db.session.add(coord_data)
-	db.session.commit()
+	if data_id:
+		img_data = db.session.query(Tracked_Data).filter(Tracked_Data.id == data_id).first()
+		img_data.tracked_coords = data
+		db.session.commit()
+	print(data)
 	return render_template('results.html', length=len(data), data=data)
