@@ -68,8 +68,8 @@ def tracked_coordinates(data_id):
 	coords = request.json['data']
 	image_positions = request.json['image position']
 	data = coords
-	session['data'] = data
-	session['image position'] = image_positions
+	# session['data'] = data
+	# session['image position'] = image_positions
 	if data_id:
 		img_data = db.session.query(Tracked_Data).filter(Tracked_Data.id == data_id).first()
 		img_data.tracked_coords = data
