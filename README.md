@@ -3,7 +3,8 @@
 Integrate WebGazer.js into a Flask Framework.
 
 ### Currently Working on:
-* Phase 2
+* Completed Phase 2
+* Consider moving on to Phase 3 but the MVP is considered complete (possibly considering calibration)
 
 
 ## Goals
