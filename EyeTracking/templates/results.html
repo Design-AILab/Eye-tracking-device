@@ -1,5 +1,16 @@
 {% extends "base.html" %} {% block content %}
 <div class="container">
+	<!-- show image and corresponding heatmaps -->
+	<h1> Where You Looked At </h1>
+        <img src="{{input}}"
+             width="600"
+             height="600"
+             alt="Original Image">
+        <img src="{{output}}"
+             width="600"
+             height="600"
+             alt="Attention">
+    <!-- show coordiantes recorded -->
 	<h1>The following is the results from the previous tracking experiment:</h1>
 	<p>{{ data }}</p>
 	{% if data %}
@@ -8,7 +19,10 @@
 		 	<li>{{ data[idx] }}</li>
 		{% endfor %}
 	</ol>
+
 	{% endif %}
+	
+
 </div>
 
 {% endblock content %}

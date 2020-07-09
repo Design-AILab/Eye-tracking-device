@@ -6,6 +6,8 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES, ALL
 from werkzeug.utils import secure_filename
 import pathlib
 
+import numpy as np
+import matplotlib.pyplot as plt
 
 # Storage for Images
 # upload limit
@@ -20,6 +22,39 @@ configure_uploads(app, photos)
 def allowed_file(filename):
         return '.' in filename and \
                filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# plotting functions 
+def in_frame(pos, data):
+    '''
+    This coordinate checks if a data point falls within a given boundary
+    '''
+    x, y = data[0], data[1]
+    # check x direction
+    if x > pos[1] or x < pos[3]:
+        return False
+    # check y direction
+    if y < pos[0] or y > pos[2]:
+        return False
+    return True
+
+def map_heatmap(data, pos, path):
+    # only keep data within the image
+    within_boundary = []
+    for d in data:
+        if in_frame(pos, d):
+            within_boundary.append(d)
+    x = []
+    y = []
+    for xx,yy in sample:
+        x.append(xx)
+        y.append(yy)
+    height_width_ratio = (pos[2] - pos[0])/(pos[1] - pos[3])
+    bins = [np.arange(min(x), max(x), 20), np.arange(min(y), max(y), 20)]
+    plt.figure(figsize=(9*height_width_ratio, 9))
+    plt.hist2d(x,y, cmap='gray', bins=bins)
+    plt.gca().invert_yaxis()
+    plt.savefig(path)
+    return path
 
 # for the purpose of css
 @app.context_processor
@@ -91,5 +126,9 @@ def show_coords(data_id):
 		img_data = db.session.query(Tracked_Data).filter(Tracked_Data.id == data_id).first()
 		if img_data:
 			data = img_data.tracked_coords
-			return render_template('results.html', length=len(data), data=data)
-	return render_template('results.html', length=None, data=None)
+			positions = img_data.image_pos
+			in_path = img_data.design
+			#out_path = IMAGE_DIRECTORY + '/heatmap_' + data_id
+			out_path = map_heatmap(data, positions, IMAGE_DIRECTORY + '/heatmap_' + data_id)
+			return render_template('results.html', length=len(data), data=data, input=in_path, output=out_path)
+	return render_template('results.html', length=None, data=None, input=None, output=None)
