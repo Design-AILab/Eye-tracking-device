@@ -8,6 +8,9 @@ import pathlib
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
+# check git issue https://github.com/matplotlib/matplotlib/issues/14304
+matplotlib.use('agg')
 
 # Storage for Images
 # upload limit
@@ -45,7 +48,7 @@ def map_heatmap(data, pos, path):
             within_boundary.append(d)
     x = []
     y = []
-    for xx,yy in sample:
+    for xx,yy in data:
         x.append(xx)
         y.append(yy)
     height_width_ratio = (pos[2] - pos[0])/(pos[1] - pos[3])
@@ -129,6 +132,7 @@ def show_coords(data_id):
 			positions = img_data.image_pos
 			in_path = img_data.design
 			#out_path = IMAGE_DIRECTORY + '/heatmap_' + data_id
-			out_path = map_heatmap(data, positions, IMAGE_DIRECTORY + '/heatmap_' + data_id)
+			map_heatmap(data, positions, 'EyeTracking/static/uploads/heatmap_' + data_id)
+			out_path = '/static/uploads/heatmap_' + data_id + '.png'
 			return render_template('results.html', length=len(data), data=data, input=in_path, output=out_path)
 	return render_template('results.html', length=None, data=None, input=None, output=None)

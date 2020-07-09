@@ -2,17 +2,22 @@
 <div class="container">
 	<!-- show image and corresponding heatmaps -->
 	<h1> Where You Looked At </h1>
-        <img src="{{input}}"
-             width="600"
-             height="600"
-             alt="Original Image">
-        <img src="{{output}}"
-             width="600"
-             height="600"
-             alt="Attention">
+		<div class="row">
+			<div class="col">
+		        <img src="{{input}}"
+		             width="500"
+		             height="500"
+		             alt="Original Image">
+		    </div>
+		    <div class="col">
+		        <img src="{{output}}"
+		             width="500"
+		             height="500"
+		             alt="Attention">
+		    </div>
+        </div>
     <!-- show coordiantes recorded -->
 	<h1>The following is the results from the previous tracking experiment:</h1>
-	<p>{{ data }}</p>
 	{% if data %}
 	<ol>
 		{% for idx in range(length) %}
