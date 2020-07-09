@@ -82,7 +82,7 @@
                 data: JSON.stringify({'data': coordinates, 'image position': image_pos}),   // converts js value to JSON string
                 // https://stackoverflow.com/questions/47122295/flask-how-to-redirect-to-new-page-after-ajax-call
                 complete: function(){
-                        window.location.href = "{{url_for('show_coords')}}";
+                        window.location.href = "{{url_for('show_coords', data_id=id)}}";
                     }
                 })
             //     .done(function(result){     // on success get the return object from server

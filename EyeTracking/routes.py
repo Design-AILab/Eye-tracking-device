@@ -70,17 +70,26 @@ def tracked_coordinates(data_id):
 	data = coords
 	session['data'] = data
 	session['image position'] = image_positions
+	if data_id:
+		img_data = db.session.query(Tracked_Data).filter(Tracked_Data.id == data_id).first()
+		img_data.tracked_coords = data
+		img_data.image_pos = image_positions
+		db.session.commit()
 	return redirect(url_for('show_coords', data_id=data_id))
 	#return render_template('results.html', length=len(data), data=data)
 
 @app.route('/show_results', defaults={'data_id': None})
 @app.route('/show_results/<data_id>')
 def show_coords(data_id):
-	data = session['data']
+	#data = session['data']
 	# save data to database
+	# if data_id:
+	# 	img_data = db.session.query(Tracked_Data).filter(Tracked_Data.id == data_id).first()
+	# 	img_data.tracked_coords = data
+	# 	db.session.commit()
 	if data_id:
 		img_data = db.session.query(Tracked_Data).filter(Tracked_Data.id == data_id).first()
-		img_data.tracked_coords = data
-		db.session.commit()
-	print(data)
-	return render_template('results.html', length=len(data), data=data)
+		if img_data:
+			data = img_data.tracked_coords
+			return render_template('results.html', length=len(data), data=data)
+	return render_template('results.html', length=None, data=None)

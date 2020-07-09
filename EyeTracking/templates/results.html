@@ -1,11 +1,14 @@
 {% extends "base.html" %} {% block content %}
 <div class="container">
 	<h1>The following is the results from the previous tracking experiment:</h1>
+	<p>{{ data }}</p>
+	{% if data %}
 	<ol>
 		{% for idx in range(length) %}
 		 	<li>{{ data[idx] }}</li>
 		{% endfor %}
 	</ol>
+	{% endif %}
 </div>
 
 {% endblock content %}
