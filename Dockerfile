@@ -16,7 +16,7 @@ RUN apk update \
     && apk add make automake gcc g++ subversion python3-dev
 
 COPY requirement.txt .
-COPY cert/ .
+ADD cert .
 # Copy the current directory contents into the container at /app
 ADD . /app
 
