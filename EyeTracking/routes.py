@@ -15,6 +15,7 @@ matplotlib.use('agg')
 # Storage for Images
 # upload limit
 app.config['MAX_CONTENT_LENGTH'] = 32 * 1024 * 1024 # 16 megabytes
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 photos = UploadSet('photos', IMAGES)
 IMAGE_DIRECTORY = '/static/uploads'
@@ -56,6 +57,7 @@ def map_heatmap(data, pos, path):
     plt.figure(figsize=(9*height_width_ratio, 9))
     plt.hist2d(x,y, cmap='gray', bins=bins)
     plt.gca().invert_yaxis()
+    plt.axis('off')
     plt.savefig(path)
     return path
 

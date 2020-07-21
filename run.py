@@ -5,4 +5,4 @@ if __name__ == "__main__":
 	if DEBUG:
 		db.drop_all()
 	db.create_all()
-	app.run('0.0.0.0', port=8100, debug=DEBUG, ssl_context=context)
+	app.run(host='0.0.0.0', port=443, debug=DEBUG, ssl_context=context)
