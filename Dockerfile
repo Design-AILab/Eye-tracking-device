@@ -13,15 +13,22 @@ RUN apk update \
     && apk add jpeg-dev zlib-dev libjpeg \
     && pip install Pillow \
     && apk del build-deps \
-    && apk add make automake gcc g++ subversion python3-dev
+    && apk add make automake gcc g++ subversion python3-dev  \
+    && apt-get install -y openssl
 
 COPY requirement.txt .
-ADD cert .
 # Copy the current directory contents into the container at /app
 ADD . /app
 
 # Set the working directory to /app
 WORKDIR /app
+
+# create certificate
+COPY generate-certificate.sh /cert/generate-certificate.sh
+
+CMD [ "/cert/generate-certificate.sh" ]
+
+
 # this is for matplotlib
 RUN pip install --upgrade pip
 RUN pip install -r requirement.txt
