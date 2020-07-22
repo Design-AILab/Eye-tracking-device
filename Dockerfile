@@ -14,7 +14,7 @@ RUN apk update \
     && pip install Pillow \
     && apk del build-deps \
     && apk add make automake gcc g++ subversion python3-dev  \
-    && pip install pyopenssl
+    && apk add --update openssl
 
 COPY requirement.txt .
 # Copy the current directory contents into the container at /app
