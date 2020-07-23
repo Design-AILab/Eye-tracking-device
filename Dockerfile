@@ -24,7 +24,7 @@ ADD . /app
 WORKDIR /app
 
 # create certificate
-COPY generate-certificate.sh /cert/generate-certificate.sh
+COPY generate-certificate.sh /app/cert/generate-certificate.sh
 
 CMD [ "/cert/generate-certificate.sh" ]
 
