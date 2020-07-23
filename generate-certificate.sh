@@ -1,5 +1,5 @@
 #!/bin/bash
-
+mkdir cert
 openssl genrsa -des3 -passout pass:xxxx -out server.pass.key 2048
 openssl rsa -passin pass:xxxx -in server.pass.key -out cert/server.key
 rm server.pass.key
