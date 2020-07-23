@@ -1,11 +1,11 @@
 #!/bin/bash
 
-openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
-openssl rsa -passin pass:x -in server.pass.key -out cert/server.key
+openssl genrsa -des3 -passout pass:xxxx -out server.pass.key 2048
+openssl rsa -passin pass:xxxx -in server.pass.key -out cert/server.key
 rm server.pass.key
 openssl req -new -key cert/server.key -out cert/server.csr \
     -subj "/C=TP/ST=NewTaipei/L=Taiwan/O=Vizly/OU=Vizly/CN=vizly.io@gmail.com"
-openssl x509 -req -days 365 -in cert/server.csr -signkey cert/server.key -out cert_test/server.crt
+openssl x509 -req -days 365 -in cert/server.csr -signkey cert/server.key -out cert/server.crt
 
 # openssl genrsa -des3 -passout pass:x -out server.pass.key 1024
 
