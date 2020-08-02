@@ -20,13 +20,16 @@ COPY requirement.txt .
 # Copy the current directory contents into the container at /app
 ADD . /app
 
-# Set the working directory to /app
-WORKDIR /app
-
 # create certificate
 COPY generate-certificate.sh /app/cert/generate-certificate.sh
 
-CMD ["cert/generate-certificate.sh" ]
+CMD ["/app/cert/generate-certificate.sh" ]
+
+
+# Set the working directory to /app
+WORKDIR /app
+
+
 
 
 # this is for matplotlib
